@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBC Financial Filing Annotation Tool</title>
+  <link rel="icon" href="assets/kbc-logo-white.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="logged-in">
+    <div id="top-right-buttons">
+      <div id="filings-button" class="clear-button">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Filings</span>
+      </div>
+      
+      <div id="apps-button" class="clear-button">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Notes</span>
+      </div>
+      
+      <a href="html/companies.html" id="companies-button" class="clear-button">
+        <i class="fa-solid fa-building"></i>
+        <span>Company</span>
+      </a>
+      
+      <div id="financials-button" class="clear-button">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Financials</span>
+      </div>
+      
+      <a id="sec-edgar-link" class="clear-button" href="https://www.sec.gov/search-filings" target="_blank">
+        <img src="assets/sec-logo-white.png" alt="SEC Logo" class="sec-logo">
+        <i class="fa-solid fa-file-magnifying-glass"></i>
+        <span>SEC EDGAR</span>
+      </a>
+    </div>
+    
+    <div class="app-menu-content-header-section" id="top-left-header">
+      <div id="app-menu-info" class="info">
+        <span class="time">12:00</span>
+      </div>
+      <div id="app-date-info">
+        <span class="date">Tuesday April 29, 2025</span>
+      </div>
+      
+      <!-- Add action buttons -->
+      <div id="home-action-buttons">
+        <button id="update-data-btn" class="home-action-button clear-button">
+          <i class="fa-solid fa-sync"></i>
+          <span>Update Data</span>
+        </button>
+        <button id="add-projects-btn" class="home-action-button clear-button">
+          <i class="fa-solid fa-folder-plus"></i>
+          <span>Add Projects</span>
+        </button>
+      </div>
+    </div>
+    
+    <div id="app-info" class="info">
+      <span class="time">12:00</span>
+      <span class="weather">
+        <i class="weather-type fa-duotone fa-sun"></i>
+        <span class="weather-temperature-value">75</span>
+        <span class="weather-temperature-unit">°F</span>
+      </span>
+    </div>
+    
+    <div id="app-pin-wrapper">
+      <input id="app-pin-hidden-input" maxlength="4" type="number" disabled>
+      <div id="app-pin">
+        <div class="app-pin-digit focused">
+          <span class="app-pin-digit-value"></span>
+        </div>
+        <div class="app-pin-digit">
+          <span class="app-pin-digit-value"></span>
+        </div>
+        <div class="app-pin-digit">
+          <span class="app-pin-digit-value"></span>
+        </div>
+        <div class="app-pin-digit">
+          <span class="app-pin-digit-value"></span>
+        </div>
+      </div>
+      <h3 id="app-pin-label">Enter PIN (1234) <span id="app-pin-error-text"></span> <span id="app-pin-cancel-text">Cancel</span></h3>
+    </div>
+    
+    <div id="app-menu">
+      <div id="app-menu-content-wrapper">
+        <div id="app-menu-content">
+          <div id="app-menu-content-header">
+            <!-- Header content moved to top level -->
+          </div>
+          
+          <div id="quick-nav" class="scrollable-component">
+            <!-- Apps button moved to top level -->
+          </div>
+          
+          <div id="tools-section" class="menu-section">
+            <div class="menu-section-title">
+              <span class="menu-section-title-text">Recent Filings</span>
+            </div>
+            <div class="menu-section-content">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div id="app-background">
+      <div class="background-image"></div>
+    </div>
+    
+    <div id="app-loading-icon">
+      <i class="fa-solid fa-spinner-third"></i>
+    </div>
+    
+    <!-- Project Action Selection Dialog -->
+    <div id="project-action-dialog" class="hidden">
+      <div class="action-dialog-modal">
+        <div class="dialog-header">
+          <h2>Project Actions</h2>
+          <button id="close-dialog" class="close-button"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="dialog-content">
+          <p>What would you like to do?</p>
+          <div class="dialog-buttons">
+            <button id="new-project-btn" class="action-button">
+              <i class="fa-solid fa-folder-plus"></i>
+              <span>Add New Project</span>
+            </button>
+            <button id="edit-project-btn" class="action-button">
+              <i class="fa-solid fa-edit"></i>
+              <span>Edit Existing Project</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Projects Modal Overlay -->
+    <div id="add-projects-overlay" class="hidden">
+      <div class="projects-modal">
+        <div class="projects-header">
+          <h2>Add Project</h2>
+          <button id="close-projects" class="close-button"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="projects-content">
+          <div class="project-field">
+            <label for="project-foa">FOA:</label>
+            <input type="text" id="project-foa" placeholder="Enter FOA">
+          </div>
+          
+          <div class="project-field">
+            <label for="project-rss">RSS Name:</label>
+            <input type="text" id="project-rss" placeholder="Enter RSS Name">
+          </div>
+          
+          <div class="project-field">
+            <label for="project-lead">Lead Organization:</label>
+            <input type="text" id="project-lead" placeholder="Enter Lead Organization">
+          </div>
+          
+          <div class="project-field">
+            <label for="project-tracking">SEC Tracking:</label>
+            <input type="text" id="project-tracking" placeholder="Enter SEC Tracking">
+          </div>
+          
+          <div class="project-field">
+            <label for="project-edgar">EDGAR Link:</label>
+            <input type="text" id="project-edgar" placeholder="Enter EDGAR Link">
+          </div>
+          
+          <div class="project-field">
+            <label for="project-cik">CIK Number:</label>
+            <input type="text" id="project-cik" placeholder="Enter CIK Number">
+          </div>
+          
+          <div class="project-field select-wrapper">
+            <label for="project-subprogram">Office-Subprogram:</label>
+            <select id="project-subprogram">
+              <option value="">Select Office-Subprogram</option>
+              <option value="MESC-10">MESC-10</option>
+              <option value="MESC-20">MESC-20</option>
+              <option value="MESC-30">MESC-30</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="projects-footer">
+          <button id="cancel-project" class="cancel-button">Cancel</button>
+          <button id="save-project" class="save-button">Save Project</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Edit Projects Modal Overlay -->
+    <div id="edit-projects-overlay" class="hidden">
+      <div class="projects-modal">
+        <div class="projects-header">
+          <h2>Edit Project</h2>
+          <button id="close-edit-projects" class="close-button"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="projects-content">
+          <div class="project-field select-wrapper" style="position: relative;">
+            <label for="project-selector">Select Project:</label>
+            <select id="project-selector">
+              <option value="">Choose a project to edit</option>
+              <!-- Will be populated dynamically -->
+            </select>
+          </div>
+          
+          <div class="project-field">
+            <label for="edit-project-foa">FOA:</label>
+            <input type="text" id="edit-project-foa" placeholder="Enter FOA">
+          </div>
+          
+          <div class="project-field">
+            <label for="edit-project-rss">RSS Name:</label>
+            <input type="text" id="edit-project-rss" placeholder="Enter RSS Name">
+          </div>
+          
+          <div class="project-field">
+            <label for="edit-project-lead">Lead Organization:</label>
+            <input type="text" id="edit-project-lead" placeholder="Enter Lead Organization">
+          </div>
+          
+          <div class="project-field">
+            <label for="edit-project-tracking">SEC Tracking:</label>
+            <input type="text" id="edit-project-tracking" placeholder="Enter SEC Tracking">
+          </div>
+          
+          <div class="project-field">
+            <label for="edit-project-edgar">EDGAR Link:</label>
+            <input type="text" id="edit-project-edgar" placeholder="Enter EDGAR Link">
+          </div>
+          
+          <div class="project-field">
+            <label for="edit-project-cik">CIK Number:</label>
+            <input type="text" id="edit-project-cik" placeholder="Enter CIK Number">
+          </div>
+          
+          <div class="project-field select-wrapper">
+            <label for="edit-project-subprogram">Office-Subprogram:</label>
+            <select id="edit-project-subprogram">
+              <option value="">Select Office-Subprogram</option>
+              <option value="MESC-10">MESC-10</option>
+              <option value="MESC-20">MESC-20</option>
+              <option value="MESC-30">MESC-30</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="projects-footer">
+          <button id="cancel-edit-project" class="cancel-button">Cancel</button>
+          <button id="update-project" class="save-button">Update Project</button>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
