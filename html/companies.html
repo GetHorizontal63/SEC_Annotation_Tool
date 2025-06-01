@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KBC Financial Filing Companies</title>
+  <link rel="icon" href="../assets/kbc-logo-white.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../css/companies.css">
+</head>
+<body>
+  <div id="app" class="logged-in inner-page">
+    <div id="top-left-buttons">
+      <a href="../main.html" id="home-button" class="clear-button">
+        <i class="fa-solid fa-home"></i>
+        <span>Home</span>
+      </a>
+    </div>
+    
+    <div id="top-right-buttons">
+      <a href="filings.html" id="filings-button" class="clear-button">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Filings</span>
+      </a>
+      
+      <a href="notes.html" id="apps-button" class="clear-button">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Notes</span>
+      </a>
+      
+      <a href="companies.html" id="companies-button" class="clear-button active">
+        <i class="fa-solid fa-building"></i>
+        <span>Company</span>
+      </a>
+      
+      <a href="financials.html" id="financials-button" class="clear-button">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Financials</span>
+      </a>
+      
+      <a id="sec-edgar-link" class="clear-button" href="https://www.sec.gov/search-filings" target="_blank">
+        <img src="../assets/sec-logo-white.png" alt="SEC Logo" class="sec-logo">
+        <i class="fa-solid fa-file-magnifying-glass"></i>
+        <span>SEC EDGAR</span>
+      </a>
+    </div>
+    
+    <div class="app-menu-content-header-section hidden-on-inner-pages" id="top-left-header">
+      <div id="app-menu-info" class="info">
+        <span class="time">12:00</span>
+      </div>
+      <div id="app-date-info">
+        <span class="date">Tuesday April 29, 2025</span>
+      </div>
+    </div>
+    
+    <div id="app-menu">
+      <div id="app-menu-content-wrapper">
+        <div id="app-menu-content">
+          <div id="companies-container">
+            <div class="page-title">
+              <h1>Company Profiles</h1>
+              <div class="notes-actions">
+                <div class="search-container">
+                  <input type="text" id="companies-search" placeholder="Search companies...">
+                  <button id="search-button"><i class="fa-solid fa-search"></i></button>
+                </div>
+                <button id="toggle-filters-btn" title="Toggle filters"><i class="fa-solid fa-filter"></i></button>
+                <button id="export-csv-btn" title="Export to CSV"><i class="fa-solid fa-file-export"></i></button>
+              </div>
+            </div>
+
+            <!-- Filters panel -->
+            <div id="filters-panel" class="hidden">
+              <div class="filter-group">
+                <label for="subprogram-filter">MESC Office</label>
+                <select id="subprogram-filter">
+                  <option value="all">All Offices</option>
+                  <option value="MESC-10">MESC-10</option>
+                  <option value="MESC-20">MESC-20</option>
+                  <option value="MESC-30">MESC-30</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label for="filings-count-filter">Minimum Filings</label>
+                <input type="number" id="filings-count-filter" min="0" value="0">
+              </div>
+              
+              <div class="filter-group">
+                <label for="annotations-filter">Has Annotations</label>
+                <select id="annotations-filter">
+                  <option value="all">All Companies</option>
+                  <option value="with">With Annotations</option>
+                  <option value="without">Without Annotations</option>
+                </select>
+              </div>
+              
+              <div class="filter-actions">
+                <button id="apply-filters" class="primary-button">Apply Filters</button>
+                <button id="reset-filters" class="secondary-button">Reset</button>
+              </div>
+            </div>
+
+            <!-- Companies sidebar -->
+            <div id="companies-sidebar">
+              <div class="sidebar-header">
+                <h3>Companies</h3>
+              </div>
+              
+              <div id="companies-list">
+                <!-- Will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <!-- Restructured company profile section -->
+            <div id="company-profile">
+              <!-- Company overview card - with latest filing added -->
+              <div id="company-overview">
+                <div class="company-info-container">
+                  <div class="company-logo-container">
+                    <div class="company-logo">
+                      <img id="company-logo-image" class="company-logo-img hidden" src="" alt="Company logo">
+                      <i id="company-logo-icon" class="fa-solid fa-building"></i>
+                    </div>
+                  </div>
+                  <div class="company-overview-details">
+                    <h2 id="company-name">Select a Company</h2>
+                    <div class="company-metadata">
+                      <span id="company-regulatory-id" class="metadata-item">Regulatory ID: </span>
+                      <span id="company-office" class="metadata-item"></span>
+                      <span id="company-ticker" class="metadata-item hidden"></span>
+                      <span id="company-industry" class="metadata-item hidden"></span>
+                    </div>
+                    <div class="latest-filing-info">
+                      <span class="latest-filing-label">Latest Filing:</span>
+                      <span id="latest-filing-date" class="latest-filing-date">--/--/--</span>
+                      <span id="latest-filing-type" class="filing-type">Form 10-K</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div id="company-tabs">
+                  <div id="overview-tab" class="company-tab active">Overview</div>
+                  <div id="financials-tab" class="company-tab">Financials</div>
+                  <div id="analytics-tab" class="company-tab">Analytics</div>
+                </div>
+              </div>
+              
+              <!-- Overview content section -->
+              <div id="overview-content" class="tab-content">
+                <!-- Dashboard Grid - Contains annotations section -->
+                <div id="company-dashboard">
+                  <!-- Annotations section now directly in dashboard -->
+                  <div class="dashboard-section annotations-section">
+                    <div class="section-header">
+                      <h3>Recent Annotations</h3>
+                      <a id="view-all-annotations" class="view-all-button">View All <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    <div id="recent-annotations-list">
+                      <!-- Will be populated by JavaScript -->
+                      <div class="empty-annotations-message">No annotations found for this company</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Financials content section - Hidden by default -->
+              <div id="financials-content" class="tab-content hidden">
+                <div class="controls-container">
+                  <div class="financials-controls">
+                    <div class="control-group">
+                      <label for="financials-period">Period:</label>
+                      <select id="financials-period">
+                        <option value="quarter">Quarterly</option>
+                        <option value="annual">Annual</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="financials-type">Statement:</label>
+                      <select id="financials-type">
+                        <option value="income">Income Statement</option>
+                        <option value="balance">Balance Sheet</option>
+                        <option value="cash">Cash Flow</option>
+                        <option value="metrics">Key Metrics</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="calendar-display">Calendar:</label>
+                      <select id="calendar-display">
+                        <option value="federal">Federal FY</option>
+                        <option value="company">Company FY</option>
+                        <option value="both">Both</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="financials-source">
+                    <span>Data source: Financial Modeling Prep</span>
+                  </div>
+                </div>
+                
+                <div id="financials-loading" class="loading-indicator hidden">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  <span>Loading financial data...</span>
+                </div>
+                
+                <div id="financials-error" class="error-message hidden">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  <span>Failed to load financial data</span>
+                </div>
+                
+                <div id="financials-container">
+                  <table id="financials-table" class="financials-table">
+                    <!-- Will be populated by JavaScript -->
+                  </table>
+                </div>
+              </div>
+              
+              <!-- Analytics content section - Hidden by default -->
+              <div id="analytics-content" class="tab-content hidden">
+                <div class="controls-container">
+                  <div class="financials-controls">
+                    <div class="control-group">
+                      <label for="analytics-period">Period:</label>
+                      <select id="analytics-period">
+                        <option value="quarter">Quarterly</option>
+                        <option value="annual">Annual</option>
+                      </select>
+                    </div>
+                    <div class="control-group">
+                      <label for="analytics-calendar">Calendar:</label>
+                      <select id="analytics-calendar">
+                        <option value="federal">Federal FY</option>
+                        <option value="company">Company FY</option>
+                        <option value="both">Both</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Solvency Metrics Container -->
+                <div class="metrics-container">
+                  <h3>Solvency Metrics</h3>
+                  <div id="solvency-metrics" class="metrics-grid">
+                    <!-- Will be populated by JavaScript -->
+                  </div>
+                </div>
+                
+                <!-- Combined Cash Chart and Runway Container -->
+                <div class="chart-container">
+                  <h3>Cash on Hand & Runway Analysis</h3>
+                  <div id="runway-analysis">
+                    <div id="runway-value-container">
+                      <span class="runway-label" id="runway-label">Estimated Runway:</span>
+                      <span id="runway-value">Calculating...</span>
+                      <span class="info-tooltip-icon" id="runway-tooltip-trigger"><i class="fa-solid fa-circle-info"></i></span>
+                      <div class="info-tooltip" id="runway-tooltip">
+                        <h4>Estimated Runway Formula</h4>
+                        <div class="formula">
+                          <strong>Runway (months) = Cash on Hand / Monthly Burn Rate</strong>
+                        </div>
+                        <p>Longer runway indicates better financial stability.</p>
+                      </div>
+                    </div>
+                    <div id="burn-rate-container">
+                      <span class="burn-rate-label" id="burn-rate-label">Average Monthly Burn Rate:</span>
+                      <span id="burn-rate-value">Calculating...</span>
+                      <span class="info-tooltip-icon" id="burnrate-tooltip-trigger"><i class="fa-solid fa-circle-info"></i></span>
+                      <div class="info-tooltip" id="burnrate-tooltip">
+                        <h4>Burn Rate Formula</h4>
+                        <div class="formula">
+                          <strong>Monthly Burn Rate = |Negative Operating Cash Flow| / Number of Months</strong>
+                        </div>
+                        <p>Lower burn rate indicates more financial stability.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="cash-chart-container">
+                    <canvas id="cash-chart" height="250"></canvas>
+                    <div id="chart-loading" class="loading-indicator hidden">
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                      <span>Loading chart data...</span>
+                    </div>
+                    <div id="chart-error" class="error-message hidden">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                      <span>Failed to load chart data</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Financial Performance Charts -->
+                <div class="chart-container">
+                  <h3>Revenue & Profitability</h3>
+                  <div id="financial-performance-container">
+                    <canvas id="performance-chart" height="250"></canvas>
+                    <div class="chart-loading-indicator loading-indicator hidden">
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                      <span>Loading chart data...</span>
+                    </div>
+                    <div class="chart-error-message error-message hidden">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                      <span>Failed to load chart data</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Balance Sheet Trends -->
+                <div class="chart-container">
+                  <h3>Balance Sheet Trends</h3>
+                  <div id="balance-trend-container">
+                    <canvas id="balance-chart" height="250"></canvas>
+                    <div class="chart-loading-indicator loading-indicator hidden">
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                      <span>Loading chart data...</span>
+                    </div>
+                    <div class="chart-error-message error-message hidden">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                      <span>Failed to load chart data</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Cash Flow Analysis -->
+                <div class="chart-container">
+                  <h3>Cash Flow Analysis</h3>
+                  <div id="cashflow-analysis-container">
+                    <canvas id="cashflow-chart" height="250"></canvas>
+                    <div class="chart-loading-indicator loading-indicator hidden">
+                      <i class="fa-solid fa-spinner fa-spin"></i>
+                      <span>Loading chart data...</span>
+                    </div>
+                    <div class="chart-error-message error-message hidden">
+                      <i class="fa-solid fa-triangle-exclamation"></i>
+                      <span>Failed to load chart data</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="app-background">
+      <div class="background-image"></div>
+    </div>
+  </div>
+  
+  <script src="../script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="../js/fiscal-year-utils.js"></script>
+  <script src="../js/financial-data-adapter.js"></script>
+  <script src="../js/companies.js"></script>
+  <script src="../js/analytics-controller.js"></script>
+  
+  <!-- Debug script to check if tabs are correctly initialized -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("DOM fully loaded - checking tab elements");
+      const overviewTab = document.getElementById('overview-tab');
+      const financialsTab = document.getElementById('financials-tab');
+      const analyticsTab = document.getElementById('analytics-tab');
+      
+      if (!overviewTab) console.error("overview-tab element not found");
+      if (!financialsTab) console.error("financials-tab element not found");
+      if (!analyticsTab) console.error("analytics-tab element not found");
+      
+      // Add direct click handlers as a backup for debugging
+      if (financialsTab) {
+        financialsTab.onclick = function() {
+          console.log("Direct click on financials tab detected");
+          document.querySelectorAll('.company-tab').forEach(tab => tab.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+          financialsTab.classList.add('active');
+          document.getElementById('financials-content').classList.remove('hidden');
+        };
+      }
+      
+      if (analyticsTab) {
+        analyticsTab.onclick = function() {
+          console.log("Direct click on analytics tab detected");
+          document.querySelectorAll('.company-tab').forEach(tab => tab.classList.remove('active'));
+          document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+          analyticsTab.classList.add('active');
+          document.getElementById('analytics-content').classList.remove('hidden');
+        };
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial Data</title>
+  <link rel="icon" href="../assets/kbc-logo-white.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../css/financials.css">
+</head>
+<body>
+  <div id="app" class="logged-in">
+    <div id="top-left-buttons">
+      <a href="../main.html" id="home-button" class="clear-button">
+        <i class="fa-solid fa-home"></i>
+        <span>Home</span>
+      </a>
+    </div>
+    
+    <div id="top-right-buttons">
+      <a href="filings.html" id="filings-button" class="clear-button">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Filings</span>
+      </a>
+      
+      <a href="notes.html" id="apps-button" class="clear-button">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Notes</span>
+      </a>
+      
+      <a href="companies.html" id="companies-button" class="clear-button">
+        <i class="fa-solid fa-building"></i>
+        <span>Company</span>
+      </a>
+      
+      <a href="financials.html" id="financials-button" class="clear-button active">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Financials</span>
+      </a>
+      
+      <a id="sec-edgar-link" class="clear-button" href="https://www.sec.gov/search-filings" target="_blank">
+        <img src="../assets/sec-logo-white.png" alt="SEC Logo" class="sec-logo">
+        <i class="fa-solid fa-file-magnifying-glass"></i>
+        <span>SEC EDGAR</span>
+      </a>
+    </div>
+    
+    <div id="app-menu">
+      <div id="app-menu-content-wrapper">
+        <div id="app-menu-content">
+          <div id="financials-container">
+            <div class="page-title">
+              <h1>Financial Data Analysis</h1>
+              <div class="company-selector">
+                <label for="company-select">Company:</label>
+                <select id="company-select">
+                  <option value="">Loading companies...</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="financials-dashboard">
+              <div class="dashboard-controls">
+                <div class="current-period">
+                  <span class="current-period-label">Current Period:</span>
+                  <span id="current-period-indicator">--</span>
+                </div>
+                
+                <div class="data-controls">
+                  <div class="data-source-selector">
+                    <label for="data-source-select">Data Source:</label>
+                    <select id="data-source-select">
+                      <option value="webull">Webull (Local)</option>
+                      <option value="yahoo">Yahoo Finance</option>
+                      <option value="alphavantage">Alpha Vantage</option>
+                      <option value="fmp">Financial Modeling Prep</option>
+                    </select>
+                  </div>
+                  <button id="download-data-btn" class="action-button" title="Download and save financial data locally">
+                    <i class="fa-solid fa-download"></i> Download Data
+                  </button>
+                  <button id="period-toggle" class="annual">Switch to Quarterly</button>
+                </div>
+              </div>
+              
+              <div class="metric-cards">
+                <div class="metric-card">
+                  <h3>Revenue</h3>
+                  <div class="metric-value">--</div>
+                  <div class="metric-change">--</div>
+                </div>
+                <div class="metric-card">
+                  <h3>Net Income</h3>
+                  <div class="metric-value">--</div>
+                  <div class="metric-change">--</div>
+                </div>
+                <div class="metric-card">
+                  <h3>EPS</h3>
+                  <div class="metric-value">--</div>
+                  <div class="metric-change">--</div>
+                </div>
+                <div class="metric-card">
+                  <h3>P/E Ratio</h3>
+                  <div class="metric-value">--</div>
+                  <div class="metric-change">--</div>
+                </div>
+              </div>
+              
+              <div class="charts-section">
+                <div class="chart-container">
+                  <h3>Revenue Growth</h3>
+                  <div class="chart" id="revenue-chart"></div>
+                </div>
+                <div class="chart-container">
+                  <h3>Profit Margins</h3>
+                  <div class="chart" id="margins-chart"></div>
+                </div>
+              </div>
+              
+              <div class="financial-statements">
+                <div class="statement-tabs">
+                  <button class="tab-button active" data-tab="income">Income Statement</button>
+                  <button class="tab-button" data-tab="balance">Balance Sheet</button>
+                  <button class="tab-button" data-tab="cashFlow">Cash Flow</button>
+                  <button class="tab-button" data-tab="metrics">Financial Metrics</button>
+                </div>
+                <div class="statement-content" id="statement-container">
+                  <div class="no-data">Select a company to view financial statements</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="app-background">
+      <div class="background-image"></div>
+    </div>
+  </div>
+  
+  <script src="../script.js"></script>
+  <script src="../js/cik-ticker-mapper.js"></script>
+  <script src="../js/yahoo-finance-api-service.js"></script>
+  <script src="../js/yahoo-finance-service.js"></script>
+  <script src="../js/financial-data-provider.js"></script>
+  <script src="../js/financial-metrics.js"></script>
+  <script>
+  // API keys configuration
+  const apiKeys = {
+    alphavantage: "YOUR_ALPHAVANTAGE_API_KEY",
+    fmp: "YOUR_FINANCIAL_MODELING_PREP_API_KEY",
+    rapidapi: "YOUR_RAPIDAPI_KEY"
+  };
+  
+  // Initialize Yahoo Finance API with your key (for backwards compatibility)
+  yahooFinanceApiService.initialize(apiKeys.rapidapi);
+  </script>
+  <script src="../js/financials.js"></script>
+  <script src="../js/webull-data-fetcher.js"></script>
+</body>
+</html>

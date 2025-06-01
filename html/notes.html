@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annotation Notes</title>
+  <link rel="icon" href="../assets/kbc-logo-white.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../css/notes.css">
+</head>
+<body>
+  <div id="app" class="logged-in inner-page">
+    <div id="top-left-buttons">
+      <a href="../main.html" id="home-button" class="clear-button">
+        <i class="fa-solid fa-home"></i>
+        <span>Home</span>
+      </a>
+    </div>
+    
+    <div id="top-right-buttons">
+      <a href="filings.html" id="filings-button" class="clear-button">
+        <i class="fa-solid fa-folder-open"></i>
+        <span>Filings</span>
+      </a>
+      
+      <a href="notes.html" id="apps-button" class="clear-button active">
+        <i class="fa-solid fa-file-lines"></i>
+        <span>Notes</span>
+      </a>
+      
+      <a href="companies.html" id="companies-button" class="clear-button">
+        <i class="fa-solid fa-building"></i>
+        <span>Company</span>
+      </a>
+      
+      <a href="financials.html" id="financials-button" class="clear-button">
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Financials</span>
+      </a>
+      
+      <a id="sec-edgar-link" class="clear-button" href="https://www.sec.gov/search-filings" target="_blank">
+        <img src="../assets/sec-logo-white.png" alt="SEC Logo" class="sec-logo">
+        <i class="fa-solid fa-file-magnifying-glass"></i>
+        <span>SEC EDGAR</span>
+      </a>
+    </div>
+    
+    <div id="app-menu">
+      <div id="app-menu-content-wrapper">
+        <div id="app-menu-content">
+          <div id="notes-container">
+            <div class="page-title">
+              <h1>Filing Notes</h1>
+              <div class="notes-actions">
+                <div class="search-container">
+                  <input type="text" id="notes-search" placeholder="Search notes...">
+                  <button id="search-button"><i class="fa-solid fa-search"></i></button>
+                </div>
+                <button id="toggle-filters-btn" title="Toggle filters"><i class="fa-solid fa-filter"></i></button>
+                <button id="export-csv-btn" title="Export to CSV"><i class="fa-solid fa-file-export"></i></button>
+              </div>
+            </div>
+
+            <!-- Moved filters panel outside the sidebar -->
+            <div id="filters-panel" class="hidden">
+              <div class="filter-group">
+                <label for="date-from">Filing Date Range</label>
+                <div class="date-range-container">
+                  <div class="date-input-group">
+                    <label for="date-from" class="date-label">From:</label>
+                    <div class="custom-date-wrapper">
+                      <input type="text" id="date-from-display" class="date-display" placeholder="mm/dd/yy" maxlength="8">
+                      <input type="date" id="date-from" class="date-hidden">
+                    </div>
+                  </div>
+                  <div class="date-input-group">
+                    <label for="date-to" class="date-label">To:</label>
+                    <div class="custom-date-wrapper">
+                      <input type="text" id="date-to-display" class="date-display" placeholder="mm/dd/yy" maxlength="8">
+                      <input type="date" id="date-to" class="date-hidden">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="filter-group">
+                <label for="company-filter">Company</label>
+                <select id="company-filter">
+                  <option value="all">All Companies</option>
+                  <!-- Will be populated dynamically -->
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label for="priority-filter">Priority Consideration</label>
+                <select id="priority-filter">
+                  <option value="all">All Priorities</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="High">High</option>
+                  <option value="Medium">Medium</option>
+                  <option value="Low">Low</option>
+                </select>
+              </div>
+              
+              <div class="filter-group">
+                <label for="recommendation-filter">Recommendation</label>
+                <select id="recommendation-filter">
+                  <option value="all">All Recommendations</option>
+                  <option value="Report">Report</option>
+                  <option value="Track">Track</option>
+                  <option value="Report and Track">Report and Track</option>
+                  <option value="Skip">Skip</option>
+                </select>
+              </div>
+              
+              <div class="filter-actions">
+                <button id="apply-filters" class="primary-button">Apply Filters</button>
+                <button id="reset-filters">Reset</button>
+              </div>
+            </div>
+
+            <div id="notes-sidebar">
+              <div class="sidebar-header">
+                <h3>Notes</h3>
+              </div>
+              
+              <div id="notes-list">
+                <!-- Will be populated by JavaScript -->
+              </div>
+            </div>
+            
+            <div id="note-editor">
+              <div id="note-editor-header">
+                <input type="text" id="note-title" placeholder="Note title...">
+                <div class="editor-actions">
+                  <div class="dropdown-chips">
+                    <select id="note-priority" class="editor-dropdown-button priority-select">
+                      <option value="">None</option>
+                      <option value="Urgent">Urgent</option>
+                      <option value="High">High</option>
+                      <option value="Medium">Medium</option>
+                      <option value="Low">Low</option>
+                    </select>
+                    <select id="note-recommendation" class="editor-dropdown-button recommendation-select">
+                      <option value="Report">Report</option>
+                      <option value="Track">Track</option>
+                      <option value="Report and Track">Report and Track</option>
+                      <option value="Skip">Skip</option>
+                    </select>
+                  </div>
+                  <button id="save-note"><i class="fa-solid fa-save"></i> Save</button>
+                  <button id="delete-note"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </div>
+              <textarea id="note-content" placeholder="Start typing your note here..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="app-background">
+      <div class="background-image"></div>
+    </div>
+  </div>
+  
+  <script src="../script.js"></script>
+  <script src="../js/notes.js"></script>
+</body>
+</html>
