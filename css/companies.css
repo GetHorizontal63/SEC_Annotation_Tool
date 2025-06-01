@@ -1,0 +1,1629 @@
+/* Companies page styles */
+
+/* Layout structure similar to notes page */
+#companies-container {
+  margin-top: -170px; /* Increased from -100px to move title up by ~1.7x its height */
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  height: calc(80vh - 0px); /* Adjusted from 70px to expand container height */
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+/* Add styling to hide the header section on inner pages without affecting layout */
+.hidden-on-inner-pages {
+  visibility: hidden;
+  opacity: 0;
+  height: 100px; /* Maintain the same height to preserve layout */
+  pointer-events: none;
+}
+
+.page-title {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px 12px 0 0;
+  backdrop-filter: blur(8px);
+}
+
+.page-title h1 {
+  color: var(--gray-245);
+  font-size: 2.2em;
+  margin: 0;
+  font-weight: 500;
+  font-family: "Rubik", sans-serif;
+}
+
+.companies-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.search-container {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 6px 12px;
+  width: 250px;
+}
+
+.search-container input {
+  background: transparent;
+  border: none;
+  color: var(--gray-245);
+  flex-grow: 1;
+  outline: none;
+  padding: 4px 8px;
+  font-size: 1em;
+  font-family: "Rubik", sans-serif;
+}
+
+.search-container input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-container button {
+  background: transparent;
+  border: none;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0 8px;
+}
+
+/* Filters panel */
+#filters-panel {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 260px;
+  background: rgba(20, 20, 20, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 80vh;
+  overflow-y: auto;
+  font-family: "Rubik", sans-serif;
+}
+
+#filters-panel.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+#filters-panel.hidden {
+  display: none;
+}
+
+.filter-group {
+  margin-bottom: 12px;
+}
+
+.filter-group label {
+  display: block;
+  color: var(--gray-200);
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  font-family: "Rubik", sans-serif;
+}
+
+.filter-group select,
+.filter-group input[type="number"] {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  padding: 8px 10px;
+  font-family: "Rubik", sans-serif;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Companies sidebar - adjust height */
+#companies-sidebar {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  height: 100%; /* Keep as 100% to fill available space */
+  overflow: hidden;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h3 {
+  color: var(--gray-245);
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 0;
+  font-family: "Rubik", sans-serif;
+}
+
+#companies-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
+  max-height: calc(80vh - 110px); /* Adjusted from 180px to give more space for content */
+  transition: none;
+}
+
+/* Custom scrollbar styling - only target scrollable containers */
+#companies-list::-webkit-scrollbar,
+#company-content::-webkit-scrollbar,
+#recent-annotations-list::-webkit-scrollbar,
+#filters-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+#companies-list::-webkit-scrollbar-track,
+#company-content::-webkit-scrollbar-track,
+#recent-annotations-list::-webkit-scrollbar-track,
+#filters-panel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+#companies-list::-webkit-scrollbar-thumb,
+#company-content::-webkit-scrollbar-thumb,
+#recent-annotations-list::-webkit-scrollbar-thumb,
+#filters-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+#companies-list::-webkit-scrollbar-thumb:hover,
+#company-content::-webkit-scrollbar-thumb:hover,
+#recent-annotations-list::-webkit-scrollbar-thumb:hover,
+#filters-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar styling */
+#companies-list,
+#company-content,
+#recent-annotations-list,
+#filters-panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+/* Make sure all content areas properly scroll */
+#company-content {
+  overflow-y: auto;
+}
+
+#recent-annotations-list {
+  overflow-y: auto;
+  max-height: 300px; /* Set a reasonable max height to ensure scrolling works */
+}
+
+/* For the filters panel which can also scroll */
+#filters-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+#filters-panel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+#filters-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+#filters-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+#filters-panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+.company-item {
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 12px;
+  transition: background-color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.company-item:hover {
+  background: rgba(40, 40, 40, 0.8);
+  transform: translateY(-2px);
+}
+
+.company-item.active {
+  background: rgba(66, 165, 245, 0.2);
+  border-left: 3px solid var(--blue);
+}
+
+.company-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.company-item-header h4 {
+  color: var(--gray-245);
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+  font-family: "Rubik", sans-serif;
+}
+
+.company-filings-count {
+  color: var(--gray-200);
+  font-size: 0.75em;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.company-subprogram {
+  display: inline-block;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+  margin-right: 6px; /* Add right margin instead of top margin */
+  margin-top: 5px;
+  vertical-align: middle; /* Ensure vertical alignment */
+}
+
+.subprogram-mesc-10 {
+  background-color: rgba(66, 165, 245, 0.2);
+  color: #3f88c5;
+}
+
+.subprogram-mesc-20 {
+  background-color: rgba(255, 235, 59, 0.2);
+  color: #d4a72c;
+}
+
+.subprogram-mesc-30 {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #3c9d40;
+}
+
+/* Company profile section - Updated */
+#company-profile {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(8px);
+  height: 100%;
+  overflow: hidden;
+  gap: 16px;
+  padding: 20px;
+}
+
+/* Adjust companies container for extended layout */
+.inner-page #companies-container {
+  width: 100%;
+  height: calc(85vh - 0px); /* Increased height to fill more of the page */
+}
+
+.inner-page #companies-sidebar {
+  width: 320px; /* Fixed width for sidebar */
+}
+
+.inner-page #company-profile {
+  flex-grow: 1; /* Allow profile to grow and fill available space */
+  width: calc(100% - 340px); /* Account for sidebar + gap */
+}
+
+/* Company overview card */
+#company-overview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.company-info-container {
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+}
+
+#company-tabs {
+  display: flex;
+  gap: 10px;
+  margin-left: 15px;
+}
+
+.company-tab {
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--gray-200);
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s;
+  font-family: "Rubik", sans-serif;
+  border-radius: 4px;
+}
+
+.company-tab:hover {
+  color: var(--gray-245);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.company-tab.active {
+  color: var(--blue);
+  background-color: rgba(66, 165, 245, 0.1);
+}
+
+.company-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--blue);
+}
+
+.company-logo-container {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.company-logo {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.company-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.company-overview-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+#company-name {
+  margin: 0;
+  font-size: 1.8em;
+  font-weight: 500;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+}
+
+.company-metadata {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.metadata-item {
+  font-size: 0.9em;
+  color: var(--gray-200);
+  display: flex;
+  align-items: center;
+}
+
+/* Update the selector from #company-cik to #company-regulatory-id */
+#company-regulatory-id {
+  width: 200px; /* Set a fixed width instead of min-width */
+  display: inline-block;
+  overflow: hidden; /* Prevent text overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+  white-space: nowrap; /* Keep text on a single line */
+}
+
+#company-regulatory-id::before {
+  content: "\f1c0";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+#company-office::before {
+  content: "\f1ad";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+.latest-filing-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 0; /* Eliminated top buffer */
+}
+
+/* Dashboard layout */
+#company-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.dashboard-section {
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dashboard-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+}
+
+.section-actions {
+  display: flex;
+  gap: 5px;
+}
+
+/* Stats cards */
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Changed to 3 columns */
+  gap: 15px;
+}
+
+.stats-card {
+  background: linear-gradient(to right, rgba(30, 30, 30, 0.8), rgba(20, 20, 20, 0.8));
+  border-radius: 8px;
+  padding: 12px; /* Reduced padding */
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  height: 70px; /* Fixed shorter height */
+}
+
+.stats-icon {
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  color: white;
+}
+
+.total-filings .stats-icon {
+  background-color: #1976d2;
+}
+
+.annotated-filings .stats-icon {
+  background-color: #388e3c;
+}
+
+.priority-filings .stats-icon {
+  background-color: #f57c00;
+}
+
+.latest-filing .stats-icon {
+  background-color: #7b1fa2;
+}
+
+.stats-data {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats-number {
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+}
+
+.stats-label {
+  font-size: 12px;
+  color: var(--gray-200);
+  font-family: "Rubik", sans-serif;
+}
+
+/* Remove the stats-trend styling as it's no longer needed */
+
+/* Chart sections */
+.chart-section {
+  position: relative;
+  min-height: 250px;
+}
+
+.chart-container {
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden; /* Prevent content overflow */
+}
+
+#performance-chart-container,
+#balance-trend-container,
+#cashflow-analysis-container,
+#cash-chart-container {
+  position: relative;
+  height: auto;
+  min-height: 250px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Make sure all charts have consistent styling */
+.chart-loading-indicator, 
+.chart-error-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  text-align: center;
+}
+
+/* Make sure all canvases have proper sizing */
+#performance-chart,
+#balance-chart,
+#cashflow-chart,
+#cash-chart {
+  max-width: 100%;
+  display: block;
+}
+
+/* Position runway analysis styling into chart container */
+#runway-analysis {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 15px;
+  background: rgba(20, 20, 20, 0.3);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+#runway-value-container,
+#burn-rate-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.runway-label,
+.burn-rate-label {
+  color: var(--gray-200);
+  font-size: 14px;
+  min-width: 180px;
+}
+
+#runway-value,
+#burn-rate-value {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gray-245);
+}
+
+#cash-chart-container {
+  position: relative;
+  height: auto; /* Auto height based on content */
+  min-height: 250px; /* Minimum height needed */
+  width: 100%;
+  margin-top: 10px; /* Add margin to separate from runway analysis */
+}
+
+/* Ensure the canvas has proper sizing */
+#cash-chart {
+  max-width: 100%;
+  display: block; /* Prevents inline spacing issues */
+}
+
+/* Position loading and error indicators */
+#chart-loading, #chart-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; /* Don't take full width */
+  text-align: center;
+}
+
+/* Fix conflicting chart container definition from earlier in the file */
+.chart-section .chart-container {
+  height: auto;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Annotations section - increased height to utilize empty space */
+.annotations-section {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 410px; /* Match height of chart section */
+  min-height: 350px;
+}
+
+#recent-annotations-list {
+  overflow-y: auto;
+  flex-grow: 1;
+  max-height: 500px; /* Increased from 330px to match the new section height */
+}
+
+.data-source {
+  font-size: 12px;
+  color: var(--gray-200);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* Financial metrics section */
+.metrics-section {
+  flex-grow: 1;
+  width: 100%;
+  max-height: none; /* Remove max-height restriction */
+}
+
+.financial-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Changed to 4 columns */
+  gap: 15px;
+}
+
+.metric-item {
+  background: rgba(20, 20, 20, 0.5);
+  border-radius: 6px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s;
+}
+
+.metric-item:hover {
+  transform: translateY(-2px);
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--gray-200);
+  margin-bottom: 5px;
+  font-family: "Rubik", sans-serif;
+}
+
+.metric-value {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+  margin-bottom: 2px;
+}
+
+.metric-trend {
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.metric-trend.positive {
+  color: var(--green);
+}
+
+.metric-trend.negative {
+  color: var(--red);
+}
+
+/* View all button */
+.view-all-button {
+  color: var(--blue);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+  font-family: "Rubik", sans-serif;
+}
+
+.view-all-button:hover {
+  color: #0d47a1;
+  text-decoration: underline;
+}
+
+.view-all-button i {
+  font-size: 12px;
+}
+
+/* Keep existing annotation styles, but add some improvements */
+.annotation-item {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.annotation-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.annotation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.annotation-filing {
+  font-weight: 500;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+}
+
+.annotation-date {
+  font-size: 12px;
+  color: var(--gray-200);
+}
+
+.annotation-content {
+  font-size: 14px;
+  color: var(--gray-200);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Rubik", sans-serif;
+}
+
+.annotation-metadata {
+  display: flex;
+  gap: 8px;
+}
+
+.annotation-priority,
+.annotation-recommendation {
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.priority-urgent {
+  background-color: rgba(255, 0, 225, 0.2);
+  color: #ff00e1; /* Bright magenta */
+}
+
+.priority-high {
+  background-color: rgba(239, 83, 80, 0.2);
+  color: var(--red);
+}
+
+.priority-medium {
+  background-color: rgba(255, 160, 0, 0.2);
+  color: var(--orange);
+}
+
+.priority-low {
+  background-color: rgba(42, 252, 152, 0.2);
+  color: var(--green);
+}
+
+.recommendation-report {
+  background-color: rgba(161, 109, 250, 0.2);
+  color: var(--violet);
+}
+
+.recommendation-track {
+  background-color: rgba(255, 160, 0, 0.2);
+  color: var(--orange);
+}
+
+.recommendation-report-and-track {
+  background-color: rgba(66, 165, 245, 0.2);
+  color: var(--blue);
+}
+
+.recommendation-skip {
+  background-color: rgba(90, 90, 90, 0.2);
+  color: var(--gray-200);
+}
+
+.empty-annotations-message {
+  text-align: center;
+  color: var(--gray-200);
+  padding: 30px 0;
+  font-style: italic;
+  font-family: "Rubik", sans-serif;
+}
+
+.no-financials-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--gray-200);
+  text-align: center;
+  gap: 10px;
+  height: 200px;
+  font-family: "Rubik", sans-serif;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 40px;
+  color: var(--gray-200);
+  font-style: italic;
+  font-family: "Rubik", sans-serif;
+}
+
+/* Update page title bar to match notes.html */
+.notes-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Updated button styles to match notes.html */
+#toggle-filters-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-size: 1em;
+  padding: 6px;
+  width: 41px;
+  height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#toggle-filters-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#toggle-filters-btn.active {
+  background-color: rgba(66, 165, 245, 0.3);
+  border: 1px solid rgba(66, 165, 245, 0.5);
+  color: var(--blue);
+}
+
+#export-csv-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-size: 1em;
+  padding: 6px;
+  width: 41px;
+  height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#export-csv-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#export-csv-btn.active {
+  background-color: rgba(76, 175, 80, 0.3);
+  border: 1px solid rgba(76, 175, 80, 0.5);
+  color: var(--green);
+}
+
+/* Company tabs styling */
+#company-tabs {
+  display: flex;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px 8px 0 0;
+  margin-top: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.company-tab {
+  padding: 12px 24px;
+  cursor: pointer;
+  color: var(--gray-200);
+  font-weight: 500;
+  position: relative;
+  transition: all 0.2s;
+  font-family: "Rubik", sans-serif;
+}
+
+.company-tab:hover {
+  color: var(--gray-245);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.company-tab.active {
+  color: var(--blue);
+  background-color: rgba(66, 165, 245, 0.1);
+}
+
+.company-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--blue);
+}
+
+.tab-content {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0 0 8px 8px;
+  padding: 20px;
+  overflow: auto;
+  height: calc(100% - 50px);
+  transition: opacity 0.3s ease;
+}
+
+.tab-content.hidden {
+  display: none;
+  opacity: 0;
+}
+
+/* Financials controls styling */
+.controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.financials-controls {
+  display: flex;
+  gap: 16px;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-group label {
+  color: var(--gray-200);
+  font-size: 14px;
+  font-family: "Rubik", sans-serif;
+}
+
+.control-group select {
+  background: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--gray-245);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-family: "Rubik", sans-serif;
+  outline: none;
+}
+
+.financials-source {
+  color: var(--gray-200);
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Financials table styling */
+#financials-container {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.financials-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--gray-200);
+  font-family: "Rubik", sans-serif;
+}
+
+.financials-table thead th {
+  background-color: rgba(20, 20, 20, 0.8);
+  padding: 12px 16px;
+  text-align: right;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--gray-245);
+  font-weight: 500;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.financials-table th.financial-row-header {
+  text-align: left;
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  background-color: rgba(20, 20, 20, 0.8);
+}
+
+.financials-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.financials-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.financials-table td {
+  padding: 8px 16px;
+  text-align: right;
+}
+
+.financials-table td.financial-row-header {
+  text-align: left;
+  color: var(--gray-245);
+  font-weight: 500;
+  position: sticky;
+  left: 0;
+  background-color: inherit;
+}
+
+.financials-table tr.important-row {
+  background-color: rgba(66, 165, 245, 0.05);
+}
+
+.financials-table tr.important-row:hover {
+  background-color: rgba(66, 165, 245, 0.1);
+}
+
+.financials-table tr.important-row td.financial-row-header {
+  font-weight: bold;
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--gray-200);
+  font-style: italic;
+  gap: 10px;
+}
+
+.loading-indicator.hidden {
+  display: none;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: var(--red);
+  font-style: italic;
+  gap: 10px;
+  background-color: rgba(239, 83, 80, 0.1);
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
+.error-message.hidden {
+  display: none;
+}
+
+.no-data-message {
+  text-align: center;
+  padding: 40px;
+  color: var(--gray-200);
+  font-style: italic;
+  font-family: "Rubik", sans-serif;
+}
+
+.no-financials-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: var(--gray-200);
+  text-align: center;
+  gap: 10px;
+  height: 200px;
+  font-family: "Rubik", sans-serif;
+}
+
+/* Ticker display styling */
+#company-ticker {
+  display: inline-flex;
+  align-items: center;
+  color: var(--green);
+  font-size: 0.9em;
+}
+
+#company-ticker::before {
+  content: "\f201";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+#company-ticker.hidden {
+  display: none;
+}
+
+/* Analytics tab styling */
+.metrics-container,
+.runway-container {
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metrics-container h3,
+.runway-container h3,
+.chart-container h3 {
+  color: var(--gray-245);
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 500;
+  font-family: "Rubik", sans-serif;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.metric-card {
+  background: rgba(20, 20, 20, 0.7);
+  border-radius: 6px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.metric-name {
+  color: var(--gray-200);
+  font-weight: 500;
+}
+
+.metric-status {
+  font-size: 12px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.metric-value {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: var(--gray-245);
+}
+
+.metric-benchmark {
+  display: none;
+}
+
+.metric-description {
+  font-size: 11px;
+  color: var(--gray-200);
+  opacity: 0.7;
+  font-family: "Rubik", sans-serif;
+}
+
+/* Status indicators */
+.metric-good {
+  color: var(--green);
+}
+
+.metric-good .metric-status {
+  background-color: rgba(76, 175, 80, 0.2);
+}
+
+.metric-warning {
+  color: var(--orange);
+}
+
+.metric-warning .metric-status {
+  background-color: rgba(255, 160, 0, 0.2);
+}
+
+.metric-critical {
+  color: var(--red);
+}
+
+.metric-critical .metric-status {
+  background-color: rgba(239, 83, 80, 0.2);
+}
+
+/* Styled tooltips for financial metrics */
+.info-tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-200);
+  font-size: 14px;
+  margin-left: 6px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.info-tooltip-icon:hover {
+  color: var(--blue);
+}
+
+.info-tooltip {
+  position: absolute;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  padding: 12px 16px;
+  width: 320px;
+  z-index: 100;
+  color: var(--gray-245);
+  backdrop-filter: blur(8px);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+
+.info-tooltip.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-tooltip h4 {
+  color: var(--blue);
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: "Rubik", sans-serif;
+}
+
+.info-tooltip p {
+  margin: 6px 0;
+  font-size: 13px;
+  color: var(--gray-200);
+  line-height: 1.4;
+  font-family: "Rubik", sans-serif;
+}
+
+.info-tooltip .formula {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+  line-height: 1.5;
+  font-family: "Rubik", sans-serif;
+}
+
+/* Position tooltip elements properly */
+#runway-value-container,
+#burn-rate-container {
+  position: relative;
+}
+
+#runway-tooltip {
+  top: 30px;
+  left: 180px;
+}
+
+#burnrate-tooltip {
+  top: 30px;
+  left: 180px;
+}
+
+.info-tooltip .formula {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Fiscal Year Selector Styling */
+.fiscal-year-selector {
+  display: none;
+}
+
+#fiscal-year-dropdown {
+  display: none;
+}
+
+.fiscal-year-display {
+  display: none;
+}
+
+.federal-fy {
+  display: none;
+}
+
+.company-fy {
+  display: none;
+}
+
+/* Add styles for benchmark source display */
+.benchmark-source {
+  grid-column: 1 / -1;
+  text-align: right;
+  font-size: 11px;
+  color: var(--gray-200);
+  margin-top: 12px;
+  font-style: italic;
+  opacity: 0.7;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.benchmark-source.live-data {
+  color: var(--green);
+  font-weight: bold;
+  font-style: normal;
+  opacity: 1;
+}
+
+.benchmark-source.error {
+  color: var(--red);
+  font-weight: bold;
+  opacity: 1;
+}
+
+/* Company industry display styling */
+#company-industry {
+  display: inline-flex;
+  align-items: center;
+  color: var(--blue);
+  font-size: 0.9em;
+}
+
+#company-industry::before {
+  content: "\f1ad"; /* building icon */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+#company-industry.hidden {
+  display: none;
+}
+
+/* Enhanced peer list display */
+.peers-list {
+  grid-column: 1 / -1;
+  text-align: left;
+  font-size: 13px;
+  color: var(--blue);
+  background: rgba(66, 165, 245, 0.1);
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-weight: 400;
+  border: 1px solid rgba(66, 165, 245, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  word-break: break-word;
+}
+
+.peers-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.peers-header strong {
+  color: #1976d2;
+}
+
+.peers-detail {
+  line-height: 1.5;
+  color: var(--gray-245);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Hide the peer company comparison elements */
+.metric-benchmark {
+  display: none;
+}
+
+.peers-list, 
+.peers-header, 
+.peers-detail {
+  display: none;
+}
+
+/* Add this styling for the home button to match other pages */
+
+/* Top left buttons container */
+#top-left-buttons {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+}
+
+/* Home button styling */
+#home-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 15px;
+  text-decoration: none;
+  width: 80px;
+  justify-content: center;
+}
+
+#home-button i {
+  color: var(--gray-245);
+}
+
+#home-button span {
+  color: white;
+  font-weight: 500;
+}
+
+/* Project FOA color chips */
+.project-foa {
+  display: inline-block;
+  font-size: 0.7em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  vertical-align: middle; /* Ensure vertical alignment */
+}
+
+/* Add a container for the badges to ensure consistent spacing */
+.company-badges {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+  align-items: center;
+  gap: 6px; /* Consistent spacing between badges */
+  margin-top: 5px;
+}
+
+/* Analytics Tab Styles */
+.data-source-indicator {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#analytics-content .company-header {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 1rem;
+}
+
+#analytics-content .card {
+    height: 100%;
+}
+
+#analytics-content .card-header {
+    background-color: #f8f9fa;
+    font-weight: 500;
+}

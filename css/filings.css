@@ -1,0 +1,1191 @@
+/* Filings page specific styles */
+
+/* Ensure consistent fonts throughout filings page */
+.page-title h1,
+.search-container input,
+.filter-group label,
+.filter-group select,
+.company-name, 
+.company-ticker,
+.filing-type,
+.filing-description,
+.filing-date,
+.filing-actions button,
+.pagination-btn,
+.pagination-ellipsis,
+.no-results {
+  font-family: "Rubik", sans-serif;
+}
+
+/* Active button state */
+#filings-button.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.3);
+}
+
+/* Home button style */
+#home-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 15px;
+  text-decoration: none;
+  width: 80px;
+  justify-content: center;
+}
+
+#home-button i {
+  color: var(--gray-245);
+}
+
+#home-button span {
+  color: white;
+  font-weight: 500;
+}
+
+/* Companies button style for filings page */
+#companies-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 15px;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  justify-content: center;
+  width: 80px;
+}
+
+#companies-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+#companies-button i, #companies-button span {
+  height: 20px;
+  line-height: 20px;
+}
+
+/* Make only the building icon blue */
+#companies-button i.fa-building {
+  color: #3f88c5; /* Blue color */
+}
+
+#companies-button span {
+  color: white;
+  font-weight: 500;
+}
+
+/* Style for Companies button in active state */
+#companies-button.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Filings container */
+#filings-container {
+  margin-top: -170px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Page title area */
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-title h1 {
+  color: var(--gray-245);
+  font-size: 2.2em;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Search controls - container for both gauge and search input */
+.search-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Add buffer space between donut chart and search bar */
+}
+
+/* Annotation gauge styling */
+.annotation-gauge-container {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  position: static;
+}
+
+.donut-chart {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.donut-chart svg {
+  transform: rotate(-90deg); /* Start from the top */
+}
+
+.donut-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8em;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+}
+
+/* Remove gauge-label class styling */
+
+/* Search area */
+.search-container {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 6px 12px;
+  width: 300px;
+  margin: 0; /* Remove margin */
+}
+
+.search-container input {
+  background: transparent;
+  border: none;
+  color: var(--gray-245);
+  flex-grow: 1;
+  outline: none;
+  padding: 4px 8px;
+  font-size: 1em;
+}
+
+.search-container input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-container button {
+  background: transparent;
+  border: none;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-size: 1em;
+  padding: 0 8px;
+}
+
+/* Filters section */
+.filters-section {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  justify-content: space-between;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  /* Each filter group gets equal width */
+}
+
+.filter-group label {
+  color: var(--gray-245);
+  font-size: 0.9em;
+  white-space: nowrap;
+  min-width: 85px; /* Consistent label width */
+}
+
+/* Filter group select styling - updated with darker background */
+.filter-group select {
+  background: rgba(0, 0, 0, 0.3); /* Changed to match notes field's dark background */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  padding: 6px 12px;
+  transition: background-color 0.2s, color 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  min-width: 80px;
+  text-align: left;
+  height: 32px; /* Match the button height */
+  box-sizing: border-box; /* Ensure padding is included in height calculation */
+  width: 100%;
+  /* Add dropdown scrollbar styling to match notes page - updated with darker colors */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(30, 30, 30, 0.8) rgba(0, 0, 0, 0.5);
+}
+
+/* Updated hover state for darker theme */
+.filter-group select:hover {
+  background: rgba(0, 0, 0, 0.4); /* Darker on hover instead of lighter */
+}
+
+/* Update dropdown options to match darker theme */
+.filter-group select option {
+  background-color: rgba(30, 30, 30, 0.95); /* Darker background for options */
+  color: var(--gray-245);
+}
+
+/* Custom scrollbar for select dropdowns with darker colors */
+.filter-group select::-webkit-scrollbar {
+  width: 6px;
+}
+
+.filter-group select::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+}
+
+.filter-group select::-webkit-scrollbar-thumb {
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 4px;
+}
+
+.filter-group select::-webkit-scrollbar-thumb:hover {
+  background: rgba(50, 50, 50, 0.9);
+}
+
+.filter-group {
+  position: relative;
+}
+
+/* Add dropdown arrow using FontAwesome */
+.filter-group.select-wrapper::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9em;
+  color: var(--gray-245);
+  pointer-events: none;
+}
+
+/* Hide default select arrow */
+.filter-group select::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.date-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+input[type="date"] {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  padding: 6px 8px;
+  width: calc(50% - 10px); /* Adjust width to account for the separator */
+  min-width: 0; /* Allow date inputs to shrink if needed */
+  outline: none;
+}
+
+input[type="date"]:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+
+/* Filings list */
+#filings-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 16px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  min-height: 390px; /* Fixed minimum height that matches when container is full */
+  height: 390px; /* Fixed height that matches when container is full */
+}
+
+#filings-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#filings-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+#filings-list::-webkit-scrollbar-thumb {
+  background: rgba(30, 30, 30, 0.8);
+  border-radius: 8px;
+}
+
+#filings-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(50, 50, 50, 0.9);
+}
+
+/* Add Firefox scrollbar styling with darker colors */
+#filings-list {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(30, 30, 30, 0.8) rgba(0, 0, 0, 0.5);
+}
+
+.filing-card {
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 140px; /* Reduced height since we removed description */
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.filing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a blue top border to cards with annotations */
+.filing-card.has-annotation {
+  border-top: 3px solid var(--blue);
+}
+
+.filing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.filing-company {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  color: var(--gray-245);
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+/* Replace ticker styling with subprogram styling */
+.company-subprogram {
+  color: var(--blue);
+  font-size: 0.8em;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content; /* Ensure chip only takes required width */
+  max-width: 110px; /* Limit maximum width */
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}
+
+/* Office-Subprogram color coding */
+.subprogram-mesc-10 {
+  background-color: rgba(66, 165, 245, 0.2);  /* Blue background */
+  color: #3f88c5;
+}
+
+.subprogram-mesc-20 {
+  background-color: rgba(255, 235, 59, 0.2);  /* Yellow background */
+  color: #d4a72c;
+}
+
+.subprogram-mesc-30 {
+  background-color: rgba(76, 175, 80, 0.2);  /* Green background */
+  color: #3c9d40;
+}
+
+.filing-type {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: var(--gray-245);
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 4px 10px;
+  text-align: center;
+}
+
+.filing-type.\10K {
+  background-color: rgba(66, 165, 245, 0.2);  /* Blue */
+}
+
+.filing-type.\10Q {
+  background-color: rgba(76, 175, 80, 0.2);  /* Green */
+}
+
+.filing-type.\8K {
+  background-color: rgba(255, 160, 0, 0.2);  /* Orange */
+}
+
+.filing-details {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.filing-date-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.filing-date {
+  color: var(--gray-90);
+  font-size: 0.9em;
+}
+
+/* Removed .filing-description styles since we're not using it anymore */
+
+/* Filings actions */
+.filing-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.filing-actions button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  padding: 8px 12px;
+  transition: background-color 0.2s;
+}
+
+.filing-actions button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.view-filing-btn {
+  flex-grow: 1;
+}
+
+.download-filing-btn, .add-note-btn, .add-plus-btn {
+  flex-grow: 0;
+  padding: 8px 10px !important;
+}
+
+/* Add styling for the plus button */
+.add-plus-btn {
+  background: rgba(66, 165, 245, 0.2); /* Light blue background */
+  border: 1px solid rgba(66, 165, 245, 0.4);  
+}
+
+.add-plus-btn:hover {
+  background: rgba(66, 165, 245, 0.3);
+}
+
+/* Add styling for priority indicators */
+.filing-priority {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  font-weight: 500;
+  font-family: "Rubik", sans-serif;
+}
+
+.priority-high {
+  background-color: rgba(239, 83, 80, 0.2);
+  color: var(--red);
+}
+
+.priority-medium {
+  background-color: rgba(255, 160, 0, 0.2);
+  color: var(--orange);
+}
+
+.priority-low {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: var(--green);
+}
+
+/* Make sure empty space is properly shown when no results */
+.no-results {
+  color: var(--gray-200);
+  padding: 100px 0; /* Add substantial padding */
+  text-align: center;
+  font-size: 1.2em;
+  height: 360px; /* Maintain height when no results shown */
+}
+
+/* Add styling for loading indicator */
+.loading-indicator {
+  color: var(--gray-200);
+  padding: 100px 0;
+  text-align: center;
+  font-size: 1.2em;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: "Rubik", sans-serif;
+}
+
+.loading-indicator i {
+  font-size: 2em;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+
+/* Add styling for error message */
+.error-message {
+  color: var(--red);
+  padding: 100px 0;
+  text-align: center;
+  font-size: 1.2em;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: "Rubik", sans-serif;
+}
+
+.error-message i {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.error-details {
+  font-size: 0.9em;
+  color: var(--gray-200);
+  margin-top: 8px;
+  max-width: 80%;
+}
+
+/* Fixed pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0;
+  padding: 10px 0;
+  width: 100%;
+  position: relative;
+  bottom: 0;
+}
+
+.pagination-btn {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: rgba(66, 165, 245, 0.2);
+  border-color: rgba(66, 165, 245, 0.4);
+}
+
+.pagination-btn.active {
+  background: rgba(66, 165, 245, 0.4);
+  border-color: rgba(66, 165, 245, 0.6);
+  font-weight: 500;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+  color: var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 5px;
+  font-size: 1em;
+}
+
+.prev-btn, .next-btn {
+  min-width: 40px;
+}
+
+.page-btn {
+  font-weight: 500;
+}
+
+/* Project FOA chip styling */
+.project-foa {
+  color: var(--blue);
+  font-size: 0.8em;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* FOA color coding */
+.foa-3500 {
+  background-color: rgba(66, 165, 245, 0.2);
+  color: #3f88c5;
+}
+
+.foa-3600 {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #3c9d40;
+}
+
+.foa-3700 {
+  background-color: rgba(156, 39, 176, 0.2);
+  color: #9c27b0;
+}
+
+.foa-3800 {
+  background-color: rgba(255, 152, 0, 0.2);
+  color: #ff9800;
+}
+
+.foa-3900 {
+  background-color: rgba(0, 188, 212, 0.2);
+  color: #00bcd4;
+}
+
+.foa-4000 {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+}
+
+.foa-4100 {
+  background-color: rgba(255, 235, 59, 0.2);
+  color: #d4a72c;
+}
+
+.foa-other {
+  background-color: rgba(158, 158, 158, 0.2);
+  color: #9e9e9e;
+}
+
+/* Office Subprogram styling for filings page */
+.subprogram-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.7em;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  font-family: "Rubik", sans-serif;
+}
+
+/* Technology sector */
+.subprogram-TECH-10 {
+  background-color: rgba(33, 150, 243, 0.3);
+  color: #42a5f5;
+  border: 1px solid rgba(33, 150, 243, 0.5);
+}
+
+/* Software sector */
+.subprogram-SOFT-20 {
+  background-color: rgba(156, 39, 176, 0.3);
+  color: #ba68c8;
+  border: 1px solid rgba(156, 39, 176, 0.5);
+}
+
+/* E-commerce sector */
+.subprogram-ECOM-15 {
+  background-color: rgba(255, 152, 0, 0.3);
+  color: #ffa726;
+  border: 1px solid rgba(255, 152, 0, 0.5);
+}
+
+/* Data sector */
+.subprogram-DATA-30 {
+  background-color: rgba(0, 150, 136, 0.3);
+  color: #26a69a;
+  border: 1px solid rgba(0, 150, 136, 0.5);
+}
+
+/* Automotive sector */
+.subprogram-AUTO-25 {
+  background-color: rgba(233, 30, 99, 0.3);
+  color: #ec407a;
+  border: 1px solid rgba(233, 30, 99, 0.5);
+}
+
+/* Financial sector */
+.subprogram-FIN-12, .subprogram-FIN-25, .subprogram-FIN-30 {
+  background-color: rgba(76, 175, 80, 0.3);
+  color: #66bb6a;
+  border: 1px solid rgba(76, 175, 80, 0.5);
+}
+
+/* Pharmaceutical sector */
+.subprogram-PHARMA-15, .subprogram-PHARMA-20, .subprogram-PHARMA-30 {
+  background-color: rgba(103, 58, 183, 0.3);
+  color: #9575cd;
+  border: 1px solid rgba(103, 58, 183, 0.5);
+}
+
+/* Banking sector */
+.subprogram-BANK-10, .subprogram-BANK-22 {
+  background-color: rgba(63, 81, 181, 0.3);
+  color: #7986cb;
+  border: 1px solid rgba(63, 81, 181, 0.5);
+}
+
+/* Consumer Packaged Goods sector */
+.subprogram-CPG-15, .subprogram-CPG-20, .subprogram-CPG-35 {
+  background-color: rgba(255, 87, 34, 0.3);
+  color: #ff8a65;
+  border: 1px solid rgba(255, 87, 34, 0.5);
+}
+
+/* Media sector */
+.subprogram-MEDIA-40 {
+  background-color: rgba(121, 85, 72, 0.3);
+  color: #a1887f;
+  border: 1px solid rgba(121, 85, 72, 0.5);
+}
+
+/* Retail sector */
+.subprogram-RETAIL-15, .subprogram-RETAIL-20, .subprogram-RETAIL-40 {
+  background-color: rgba(255, 193, 7, 0.3);
+  color: #ffd54f;
+  border: 1px solid rgba(255, 193, 7, 0.5);
+}
+
+/* Energy sector */
+.subprogram-ENERGY-15, .subprogram-ENERGY-25 {
+  background-color: rgba(244, 67, 54, 0.3);
+  color: #ef5350;
+  border: 1px solid rgba(244, 67, 54, 0.5);
+}
+
+/* Life Sciences sector */
+.subprogram-LIFE-15 {
+  background-color: rgba(0, 188, 212, 0.3);
+  color: #4dd0e1;
+  border: 1px solid rgba(0, 188, 212, 0.5);
+}
+
+/* Food sector */
+.subprogram-FOOD-25 {
+  background-color: rgba(139, 195, 74, 0.3);
+  color: #aed581;
+  border: 1px solid rgba(139, 195, 74, 0.5);
+}
+
+/* Apparel sector */
+.subprogram-APPRL-10 {
+  background-color: rgba(233, 30, 99, 0.3);
+  color: #f48fb1;
+  border: 1px solid rgba(233, 30, 99, 0.5);
+}
+
+/* Telecom sector */
+.subprogram-TELCO-10, .subprogram-TELCO-15 {
+  background-color: rgba(3, 169, 244, 0.3);
+  color: #4fc3f7;
+  border: 1px solid rgba(3, 169, 244, 0.5);
+}
+
+/* Logistics sector */
+.subprogram-LOGST-25 {
+  background-color: rgba(96, 125, 139, 0.3);
+  color: #90a4ae;
+  border: 1px solid rgba(96, 125, 139, 0.5);
+}
+
+/* Generic fallback for any other subprograms */
+.subprogram-other {
+  background-color: rgba(158, 158, 158, 0.3);
+  color: #bdbdbd;
+  border: 1px solid rgba(158, 158, 158, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  #filings-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .search-controls {
+    width: 100%;
+  }
+  
+  .search-container {
+    width: 100%;
+  }
+  
+  .filters-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+  
+  .filter-group select {
+    flex-grow: 1;
+  }
+  
+  .date-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .date-separator {
+    align-self: center;
+  }
+  
+  .filter-group label {
+    min-width: unset;
+    width: 80px; /* Fixed width for labels on mobile */
+  }
+}
+
+/* Annotation overlay */
+#annotation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+#annotation-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.annotation-modal {
+  background: rgba(30, 30, 30, 0.95);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.annotation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.annotation-header h2 {
+  color: var(--gray-245);
+  margin: 0;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: var(--gray-200);
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: color 0.2s;
+}
+
+.close-button:hover {
+  color: var(--gray-245);
+}
+
+.annotation-content {
+  padding: 20px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.annotation-company-info {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.annotation-label-large {
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+}
+
+.annotation-label-chip {
+  background: rgba(66, 165, 245, 0.2);
+  color: var(--blue);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: "Rubik", sans-serif;
+}
+
+.annotation-label-date {
+  color: var(--gray-200);
+  font-size: 0.9em;
+  font-family: "Rubik", sans-serif;
+}
+
+.annotation-field {
+  margin-bottom: 20px;
+}
+
+.annotation-field-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.annotation-field-row .annotation-field {
+  flex: 1;
+}
+
+.annotation-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+}
+
+.annotation-field textarea, 
+.annotation-field select {
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  resize: none;
+  box-sizing: border-box;
+}
+
+/* Fix annotation overlay dropdown styling */
+.annotation-field select {
+  /* Match the dark background of the textarea */
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  width: 100%;
+  padding: 10px;
+  
+  /* Remove default dropdown arrow and styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Add custom dropdown arrow using CSS */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  
+  /* Ensure proper padding for the arrow */
+  padding-right: 30px;
+  
+  /* Better scrollbar for dropdown */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(30, 30, 30, 0.8) rgba(0, 0, 0, 0.5);
+}
+
+/* Style dropdown options */
+.annotation-field select option {
+  background-color: rgb(30, 30, 30);
+  color: var(--gray-245);
+  padding: 10px;
+}
+
+/* Style focus state */
+.annotation-field select:focus {
+  outline: none;
+  border-color: rgba(66, 165, 245, 0.5);
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+}
+
+.annotation-field textarea {
+  height: 200px;
+}
+
+.annotation-field textarea:focus, 
+.annotation-field select:focus {
+  outline: none;
+  border-color: rgba(66, 165, 245, 0.5);
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+}
+
+.character-counter {
+  text-align: right;
+  margin-top: 6px;
+  color: var(--gray-200);
+  font-size: 0.8em;
+  font-family: "Rubik", sans-serif;
+}
+
+.annotation-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cancel-button, .save-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cancel-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--gray-245);
+}
+
+.cancel-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.save-button {
+  background: rgba(66, 165, 245, 0.4);
+  border: 1px solid rgba(66, 165, 245, 0.6);
+  color: var(--gray-245);
+}
+
+.save-button:hover {
+  background: rgba(66, 165, 245, 0.6);
+}
+
+/* Responsive adjustments for the annotation modal */
+@media (max-width: 768px) {
+  .annotation-field-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .annotation-modal {
+    width: 95%;
+    max-height: 95vh;
+  }
+  
+  .annotation-field textarea {
+    height: 150px;
+  }
+}
+
+/* Replace the annotation chip with a top border indicator */
+.annotation-chip {
+  display: none; /* Hide the actual chip as we'll use the card styling instead */
+}
+
+/* Save confirmation notification */
+.save-confirmation {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(76, 175, 80, 0.8);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  transform: translateY(-30px);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+}
+
+.save-confirmation.visible {
+  transform: translateY(0);
+  opacity: 1;
+}

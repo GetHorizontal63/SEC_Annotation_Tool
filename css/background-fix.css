@@ -1,0 +1,39 @@
+/* Fix for background image paths in subfolders */
+.background-image {
+  background-image: url('../assets/background1.png') !important;
+}
+
+/* Fix for company-subprogram badges on main page */
+
+/* Company subprogram badge positioning on main page */
+.filing-preview-card .company-subprogram {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  display: inline-block;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
+  background: rgba(30, 30, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Make sure these styles are applied to the main page */
+#tools-section .filing-preview-card .company-subprogram {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Filing preview date styling */
+.filing-preview-date {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 4px;
+  color: var(--gray-200);
+}

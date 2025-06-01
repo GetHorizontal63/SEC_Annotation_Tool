@@ -1,0 +1,831 @@
+/* Financials page specific styles */
+
+/* Ensure consistent fonts throughout financials page */
+.page-title h1,
+.company-selector label,
+.company-selector select,
+.metric-card h3,
+.metric-value,
+.metric-change,
+.chart-container h3,
+.chart-line-label,
+.chart-bar span,
+.chart-label,
+.tab-button,
+.financial-table th,
+.financial-table td,
+.no-data {
+  font-family: "Rubik", sans-serif;
+}
+
+/* Active button state */
+#financials-button.active {
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(42, 252, 152, 0.3);
+}
+
+/* Home button style */
+#home-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+  padding: 8px 15px;
+  text-decoration: none;
+  width: 80px;
+  justify-content: center;
+}
+
+#home-button i {
+  color: var(--gray-245);
+}
+
+#home-button span {
+  color: white;
+  font-weight: 500;
+}
+
+/* Financials container */
+#financials-container {
+  margin-top: -70px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* Remove the max-height and overflow-y to prevent internal scrollbar */
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Custom scrollbar for the page content, not the container itself */
+#app-menu-content-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+#app-menu-content-wrapper::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+#app-menu-content-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+#app-menu-content-wrapper::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar styling */
+#app-menu-content-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+/* Page title area */
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.page-title h1 {
+  color: var(--gray-245);
+  font-size: 2.2em;
+  margin: 0;
+  font-weight: 500;
+}
+
+.company-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.company-selector label {
+  color: var(--gray-245);
+  font-size: 1em;
+}
+
+/* Company selector styling - match dropdown-chips from notes.css */
+.company-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.company-selector label {
+  color: var(--gray-245);
+  font-size: 1em;
+}
+
+.company-selector select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  padding: 6px 12px;
+  transition: background-color 0.2s, color 0.2s;
+  min-width: 200px;
+  text-align: left;
+  height: 32px;
+  box-sizing: border-box;
+  outline: none;
+  position: relative;
+}
+
+.company-selector select:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.company-selector select:focus {
+  border-color: rgba(66, 165, 245, 0.6);
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.2);
+}
+
+.company-selector select option {
+  background-color: var(--gray-30);
+  color: var(--gray-245);
+}
+
+/* Remove after pseudo element and replace with FontAwesome icon approach from notes.css */
+.company-selector::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-245);
+  pointer-events: none;
+  font-size: 0.9em;
+}
+
+.company-selector select::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* Custom scrollbar for company select dropdown */
+.company-selector select::-webkit-scrollbar {
+  width: 6px;
+}
+
+.company-selector select::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.company-selector select::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.company-selector select::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar styling */
+.company-selector select {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+/* Add this CSS after the data-source-selector styles */
+#download-data-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(66, 165, 245, 0.2);
+  border: 1px solid rgba(66, 165, 245, 0.4);
+  border-radius: 4px;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  padding: 6px 12px;
+  transition: background-color 0.2s;
+}
+
+#download-data-btn:hover {
+  background: rgba(66, 165, 245, 0.3);
+}
+
+#download-data-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#download-data-btn i {
+  font-size: 0.9em;
+}
+
+.financials-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Metric cards */
+.metric-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.metric-card {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 8px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.metric-card:hover {
+  transform: translateY(-3px);
+}
+
+.metric-card h3 {
+  color: var(--gray-200);
+  font-size: 1em;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+}
+
+.metric-value {
+  color: var(--gray-245);
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.metric-change {
+  font-size: 0.9em;
+  display: block;
+}
+
+.metric-change.positive {
+  color: var(--green);
+}
+
+.metric-change.negative {
+  color: var(--red);
+}
+
+/* Charts section */
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.chart-container {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 8px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.chart-container h3 {
+  color: var(--gray-245);
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 0 0 15px 0;
+}
+
+.chart {
+  height: 250px;
+  width: 100%;
+  position: relative;
+}
+
+/* Chart placeholders */
+.chart-placeholder {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-bars {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 80%;
+  padding-bottom: 30px;
+}
+
+.chart-bar {
+  background: linear-gradient(to top, var(--blue), #64b5f6);
+  border-radius: 4px 4px 0 0;
+  width: 40px;
+  position: relative;
+  min-height: 30%;
+  transition: height 0.3s;
+}
+
+.chart-bar span {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gray-200);
+  font-size: 0.8em;
+}
+
+.chart-label {
+  text-align: center;
+  color: var(--gray-200);
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.chart-lines {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.chart-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.chart-line.gross {
+  background-color: rgba(42, 252, 152, 0.5);
+}
+
+.chart-line.operating {
+  background-color: rgba(66, 165, 245, 0.5);
+}
+
+.chart-line.net {
+  background-color: rgba(255, 160, 0, 0.5);
+}
+
+.chart-labels {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.chart-line-label {
+  position: absolute;
+  right: 10px;
+  color: var(--gray-245);
+  font-size: 0.8em;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px 8px;
+  border-radius: 4px;
+  transform: translateY(-50%);
+}
+
+/* Financial statements */
+.financial-statements {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.statement-tabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  color: var(--gray-200);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.9em;
+  padding: 12px 20px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tab-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--gray-245);
+}
+
+.tab-button.active {
+  background: rgba(66, 165, 245, 0.2);
+  color: var(--gray-245);
+  font-weight: 500;
+  border-bottom: 2px solid var(--blue);
+}
+
+.statement-content {
+  padding: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for statement content */
+.statement-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.statement-content::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.statement-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.statement-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar styling */
+.statement-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+/* Dashboard controls */
+.dashboard-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Data controls container */
+.data-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Data source selector */
+.data-source-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.data-source-selector label {
+  color: var(--gray-200);
+  font-size: 0.9em;
+}
+
+#data-source-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: var(--gray-245);
+  cursor: pointer;
+  font-family: "Rubik", sans-serif;
+  font-size: 0.85em;
+  padding: 5px 25px 5px 10px;
+  transition: background-color 0.2s;
+}
+
+.data-source-selector::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-245);
+  pointer-events: none;
+}
+
+#data-source-select:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Financial report container */
+.financial-report-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Extend the financial table to support multi-period view */
+.financial-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px; /* Ensure minimum width for horizontal scrolling */
+}
+
+.financial-table th,
+.financial-table td {
+  padding: 10px 15px;
+  text-align: left;
+  color: var(--gray-245);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.financial-table th {
+  position: sticky;
+  top: 0;
+  background: rgba(20, 20, 20, 0.95);
+  z-index: 10;
+  color: var(--gray-200);
+  font-weight: 500;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+.financial-table th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  background: rgba(20, 20, 20, 0.95);
+}
+
+.financial-table td:first-child {
+  position: sticky;
+  left: 0;
+  background: rgba(30, 30, 30, 0.95);
+  z-index: 5;
+  font-weight: 500;
+}
+
+.financial-table td {
+  font-size: 0.95em;
+}
+
+.financial-table td:not(:first-child) {
+  text-align: right;
+}
+
+.financial-table td.positive {
+  color: var(--green);
+}
+
+.financial-table td.negative {
+  color: var(--red);
+}
+
+/* Add a subtle highlighting effect on row hover */
+.financial-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom scrollbar for financial tables */
+.financial-report-container::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.financial-report-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.financial-report-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.financial-report-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox scrollbar styling */
+.financial-report-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.3);
+}
+
+.no-data {
+  color: var(--gray-200);
+  font-size: 1.1em;
+  padding: 30px;
+  text-align: center;
+}
+
+/* Financial metrics styles */
+.metrics-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.metrics-group {
+  background: rgba(20, 20, 20, 0.5);
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.metrics-group-title {
+  color: var(--gray-245);
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 0 0 15px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.metrics-table th, 
+.metrics-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metrics-table th {
+  color: var(--gray-200);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+.metrics-table td {
+  color: var(--gray-245);
+  font-size: 0.9em;
+}
+
+.metrics-table .benchmark {
+  color: var(--gray-130);
+  font-size: 0.8em;
+  display: block;
+  margin-top: 2px;
+}
+
+.metrics-table .metric-name {
+  position: relative;
+  padding-right: 20px;
+}
+
+.info-icon {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-130);
+  font-size: 0.85em;
+  cursor: help;
+}
+
+.info-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  width: 250px;
+  z-index: 100;
+  top: 100%;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  pointer-events: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.metric-name:hover .info-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.metrics-table .value {
+  font-weight: 500;
+}
+
+.metrics-table .change {
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.metrics-table .status {
+  width: 30px;
+  text-align: center;
+}
+
+.status-icon {
+  border-radius: 50%;
+  display: inline-block;
+  height: 8px;
+  width: 8px;
+}
+
+.status-good {
+  background-color: var(--green);
+}
+
+.status-warning {
+  background-color: var(--orange);
+}
+
+.status-bad {
+  background-color: var(--red);
+}
+
+.status-neutral {
+  background-color: var(--gray-90);
+}
+
+/* Make statement tabs scrollable on mobile */
+@media (max-width: 768px) {
+  .statement-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: block;
+    padding-bottom: 5px;
+  }
+  
+  .statement-tabs::-webkit-scrollbar {
+    height: 3px;
+  }
+  
+  .statement-tabs::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+  }
+  
+  .tab-button {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  
+  .metrics-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1200px) {
+  .metric-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .company-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .company-selector select {
+    flex-grow: 1;
+  }
+  
+  .metric-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .financial-table th,
+  .financial-table td {
+    padding: 8px;
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 600px) {
+  .statement-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px;
+  }
+}
